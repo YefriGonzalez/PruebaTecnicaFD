@@ -1,0 +1,83 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+	<!-- Creación de la tabla 'User' -->
+	<changeSet id="1" author="yefrig">
+		<createTable tableName="User">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="username" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="email" type="VARCHAR(50)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="password" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="createdAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="updatedAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<!-- Creación de la tabla 'Post' -->
+	<changeSet id="2" author="yefrig" >
+		<createTable tableName="Post">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="title" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="content" type="TEXT" />
+			<column name="authorId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="createdAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="updatedAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<!-- Relación con la tabla 'User' (Foreign Key) -->
+		<addForeignKeyConstraint baseColumnNames="authorId" baseTableName="Post" constraintName="fk_post_author" referencedColumnNames="id" referencedTableName="User" />
+	</changeSet>
+	<!-- Creación de la tabla 'Comment' -->
+	<changeSet id="3" author="yefrig">
+		<createTable tableName="Comment">
+			<column name="id" type="INT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="content" type="TEXT" />
+			<column name="authorId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="postId" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="createdAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="updatedAt" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<!-- Relación con la tabla 'User' (Foreign Key) -->
+		<addForeignKeyConstraint baseColumnNames="authorId" baseTableName="Comment" constraintName="fk_comment_author" referencedColumnNames="id" referencedTableName="User" />
+		<!-- Relación con la tabla 'Post' (Foreign Key) -->
+		<addForeignKeyConstraint baseColumnNames="postId" baseTableName="Comment" constraintName="fk_comment_post" referencedColumnNames="id" referencedTableName="Post" />
+	</changeSet>
+	<changeSet id="4" author="yefrig">
+		<insert tableName="User">
+			<column name="username" value="admin" />
+			<column name="email" value="admin@example.com" />
+			<column name="password" value="cdd9286f924500252962bc" />
+			<column name="createdAt" valueDate="2024-09-21T00:00:00" />
+			<column name="updatedAt" valueDate="2024-09-21T00:00:00" />
+		</insert>
+	</changeSet>
+</databaseChangeLog>

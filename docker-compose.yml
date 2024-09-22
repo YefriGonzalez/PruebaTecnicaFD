@@ -1,0 +1,51 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:14
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: wKHylj7AXj9HFUf
+      POSTGRES_DB: socialDatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase
+    restart: on-failure
+    volumes:
+      - ./liquibase/changelogs:/liquibase/changelogs
+      - ./liquibase/liquibase.properties:/liquibase/liquibase.properties
+    entrypoint: ["liquibase", "--defaultsFile=/liquibase/liquibase.properties", "update"]
+    depends_on:
+      - postgres
+  back-end:
+    build: ./back-prueba-tecnica
+    env_file:
+      - ./back-prueba-tecnica/.env
+    container_name: back-end
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - liquibase
+    command: >
+      sh -c "npm run start:prod"
+  
+  front-end:
+    build: ./front-prueba-tecnica
+    container_name: front-end
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - back-end
+ 
+
+volumes:
+  postgres_data:
