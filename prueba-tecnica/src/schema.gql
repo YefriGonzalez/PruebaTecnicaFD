@@ -47,13 +47,14 @@ type AuthResponse {
 type Query {
   users: [User!]!
   posts: [Post!]!
+  postFindOne(id: Int!): Post!
   getCommentsByPost(postId: Float!): [Comment!]!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   createPost(createPostInput: CreatePostInput!): Post!
-  createComment(postId: Float!, createCommentInput: CommentPostInput!): Comment!
+  createComment(postId: Int!, commentPostInput: CommentPostInput!): Comment!
   login(loginInput: LoginInput!): AuthResponse!
 }
 

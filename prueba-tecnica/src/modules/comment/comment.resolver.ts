@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from 'src/auth/decorators';
 import { CommentService } from './comment.service';
 import { User } from '../user/entity';
@@ -14,8 +14,9 @@ export class CommentResolver {
   @UseGuards(JwtAuthGuard)
   @Mutation(() => Comment)
   async createComment(
-    @Args('postId') postId: number,
-    @Args('createCommentInput') createCommentInput: CommentPostInput,
+    @Args('postId', { type: () => Int }) postId: number,
+    @Args('commentPostInput', { type: () => CommentPostInput })
+    createCommentInput: CommentPostInput,
     @CurrentUser() user: User,
   ): Promise<Comment> {
     return this.commentService.create(createCommentInput, user.id, postId);

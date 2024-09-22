@@ -4,3 +4,4 @@ export class CommentPostInput {
   @Field()
   content: string;
 }
+

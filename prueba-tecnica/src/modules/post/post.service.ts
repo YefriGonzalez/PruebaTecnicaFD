@@ -51,6 +51,11 @@ export class PostService {
         where: { id: Number(id) },
         include: {
           author: true,
+          comments: {
+            include: {
+              author: true,
+            },
+          },
         },
       });
       if (!post) {
