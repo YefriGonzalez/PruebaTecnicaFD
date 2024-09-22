@@ -3,6 +3,7 @@
 ## Introduccion
 Este proyecto tiene como objetivo presentar la prueba tecnica propuesta para el empleo de Desarrollador Backend
 de Finca Digital
+.Se podra visualizar en la ruta http://localhost
 
 ## Requisitos:
 - Docker

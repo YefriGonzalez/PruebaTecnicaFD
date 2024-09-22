@@ -26,8 +26,12 @@ services:
       - postgres
   back-end:
     build: ./back-prueba-tecnica
-    env_file:
-      - ./back-prueba-tecnica/.env
+    environment:
+      DATABASE_URL: postgresql://user:wKHylj7AXj9HFUf@postgres:5432/socialDatabase?schema=public
+      PORT: 3000
+      SECRET_KEY: llaveprivada
+      JWT_SECRET: mysecretkey
+      IV: 4d165ba2d496b9025317e53e738e095d  
     container_name: back-end
     restart: always
     ports:
