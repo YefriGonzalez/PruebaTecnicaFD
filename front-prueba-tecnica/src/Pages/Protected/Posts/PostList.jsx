@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { gql, useQuery } from "@apollo/client";
 import { Add } from "@mui/icons-material";
+import ModalPost from "./ModalPost";
 const GET_POSTS_QUERY = gql`
   query GetPosts {
     posts {
@@ -30,31 +31,45 @@ const GET_POSTS_QUERY = gql`
 `;
 
 const PostList = () => {
-  const { loading, error, data } = useQuery(GET_POSTS_QUERY);
+  const [modalOpen, setModalOpen] = useState(false);
+  const { loading, error, data, refetch } = useQuery(GET_POSTS_QUERY);
+  const refetchPosts = () => {
+    refetch();
+  };
 
   if (loading) return <CircularProgress />; // Mostrar un loader mientras carga
   if (error) return <p>Error al cargar los posts: {error.message}</p>;
   return (
-    <Container>
-      <Box sx={{
-        display:'flex',
-        justifyContent:'space-around'
-      }}>
-        <Typography variant="h4" gutterBottom>
-          Listado de Posts
-        </Typography>
-        <Button variant="contained">
-            <Add/> Agregar post
-        </Button>
-      </Box>
-
-      <Grid2 container spacing={3}>
-        {data?.posts?.map((post) => (
-          <Grid2 item xs={12} sm={6} md={4} key={post.id}>
+    <>
+      <Container>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <Typography variant="h4" gutterBottom>
+            Listado de Posts
+          </Typography>
+          <Button variant="contained" onClick={() => setModalOpen(!modalOpen)}>
+            <Add /> Agregar post
+          </Button>
+        </Box>
+        <div className="flex flex-row justify-content-between flex-wrap w-100 mt-4">
+          {data?.posts?.map((post) => (
             <Card
               component={Link}
+              variant="elevation"
+              color="primary"
               to={`/post/${post.id}`}
-              style={{ textDecoration: "none" }}
+              sx={{
+                textDecoration: "none",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                transition: "0.3s",
+                backgroundColor: "#f5f5f5",
+                width: "31%", 
+                margin: "10px",
+              }}
             >
               <CardContent>
                 <Typography variant="h5" component="div">
@@ -78,10 +93,17 @@ const PostList = () => {
                 </Typography>
               </CardActions>
             </Card>
-          </Grid2>
-        ))}
-      </Grid2>
-    </Container>
+          ))}
+        </div>
+      </Container>
+      {modalOpen && (
+        <ModalPost
+          setOpen={setModalOpen}
+          open={modalOpen}
+          refetchPosts={refetchPosts}
+        />
+      )}
+    </>
   );
 };
 

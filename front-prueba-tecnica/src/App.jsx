@@ -4,13 +4,16 @@ import { ThemeContext } from "./contexts/theme-context";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import ThemeApp from "./assets/StylesMui";
 import { Route, Routes } from "react-router-dom";
-// import { UserRenderRoutes } from "./routes/user.routes";
+import Cookies from "js-cookie";
 import LoadingPage from "./Pages/NotProtected/LoadingPage";
 import { PostRenderRoutes } from "./Routes/post.routes";
-import { ProtectedRoute } from "./Utilities/ProtectedRoute";
+import CustomAppBar from "./components/AppBar";
 const Home = lazy(() => import("./Pages/Protected/Home"));
 const NotFound = lazy(() => import("./Pages/NotProtected/NotFound"));
+
+
 function App() {
+  const token = Cookies.get("accessToken") || null;
   const isBrowserDefaultDark = () =>
     window.matchMedia("(prefers-color-scheme: dark)").matches;
   const getDefaultTheme = () => {
@@ -18,7 +21,7 @@ function App() {
     const browserDefault = isBrowserDefaultDark() ? "dark" : "light";
     return localStorageTheme || browserDefault;
   };
-
+ 
   const [theme, setTheme] = useState(getDefaultTheme());
   return (
     <>
@@ -33,11 +36,11 @@ function App() {
         >
           <ThemeProvider theme={ThemeApp(theme)}>
             <Suspense fallback={<LoadingPage />}>
+            {token &&  <CustomAppBar />}
+              
               <Routes>
                 <Route path="/" element={<Home />} />
-                {/* <Route element={<ProtectedRoute />}> */}
-                  {PostRenderRoutes()}
-                {/* </Route> */}
+                {PostRenderRoutes()}
 
                 <Route path="*" element={<NotFound />} />
               </Routes>

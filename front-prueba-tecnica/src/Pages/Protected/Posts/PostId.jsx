@@ -89,7 +89,7 @@ const PostDetail = () => {
           <Typography variant="h4" gutterBottom>
             {post.title}
           </Typography>
-          <Typography variant="body1" paragraph>
+          <Typography variant="body1">
             {post.content}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary">
