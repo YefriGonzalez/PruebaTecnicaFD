@@ -2,20 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
-  id: Int!
-  username: String!
-  email: String!
-  password: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Post {
   id: Int!
   title: String!
@@ -23,6 +9,35 @@ type Post {
   authorId: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
+  author: User!
+  comments: [Comment!]
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Comment {
+  id: Int!
+  content: String!
+  authorId: Float!
+  postId: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  author: User!
+  post: [Post!]!
+}
+
+type User {
+  id: Int!
+  username: String!
+  email: String!
+  password: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  posts: Post
+  comments: [Comment!]
 }
 
 type AuthResponse {
@@ -32,11 +47,13 @@ type AuthResponse {
 type Query {
   users: [User!]!
   posts: [Post!]!
+  getCommentsByPost(postId: Float!): [Comment!]!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
   createPost(createPostInput: CreatePostInput!): Post!
+  createComment(postId: Float!, createCommentInput: CommentPostInput!): Comment!
   login(loginInput: LoginInput!): AuthResponse!
 }
 
@@ -48,6 +65,10 @@ input CreateUserInput {
 
 input CreatePostInput {
   title: String!
+  content: String!
+}
+
+input CommentPostInput {
   content: String!
 }
 

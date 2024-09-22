@@ -12,6 +12,7 @@ export class PostResolver {
     constructor(private readonly postService: PostService) {}
 
   @Query(() => [Post])
+  @UseGuards(JwtAuthGuard)
   async posts(): Promise<Post[]> {
     return this.postService.findAll();
   }

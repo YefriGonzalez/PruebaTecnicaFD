@@ -18,33 +18,43 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.findByEmail(email);
+    try {
+      const user = await this.userService.findByEmail(email);
 
-    if (user) {
-      const decryptedPassword = await this.userService.decryptPassword(
-        user.password,
-      );
-      if (decryptedPassword === password) {
-        const { password, ...result } = user;
-        return result;
+      if (user) {
+        const decryptedPassword = await this.userService.decryptPassword(
+          user.password,
+        );
+        if (decryptedPassword === password) {
+          const { password, ...result } = user;
+          return result;
+        }
       }
+      return null;
+    } catch (error) {
+      this.logger.log(error);
+      throw new InternalServerErrorException('Ocurrio un error interno');
     }
-    return null;
   }
 
   async login(
     email: string,
     password: string,
   ): Promise<{ accessToken: string }> {
-    const user = await this.validateUser(email, password);
-    if (!user) {
-      throw new UnauthorizedException('Credenciales inválidas');
-    }
+    try {
+      const user = await this.validateUser(email, password);
+      if (!user) {
+        throw new UnauthorizedException('Credenciales inválidas');
+      }
 
-    const payload = { username: user.username, id: user.id };
-    return {
-      accessToken: this.jwtService.sign(payload),
-    };
+      const payload = { username: user.username, id: user.id };
+      return {
+        accessToken: this.jwtService.sign(payload),
+      };
+    } catch (error) {
+      this.logger.log(error);
+      throw new InternalServerErrorException('Ocurrio un error interno');
+    }
   }
 
   async validateJwt(token: string): Promise<User> {
