@@ -8,7 +8,6 @@ import { JwtAuthGuard } from '@AuthConfig/guards/jwt.guard';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthService } from '@AuthConfig/auth.service';
 
-// Mock del AuthService
 const mockAuthService = {
   validateUser: jest.fn().mockReturnValue(true),
 };

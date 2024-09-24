@@ -1,10 +1,10 @@
 import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from '@AuthConfig/decorators';
 import { CommentService } from './comment.service';
 import { User } from '../user/entity';
 import { CommentPostInput } from './inputs';
 import { Comment } from './entity';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { JwtAuthGuard } from '@AuthConfig/guards/jwt.guard';
 import { UseGuards } from '@nestjs/common';
 
 @Resolver()
