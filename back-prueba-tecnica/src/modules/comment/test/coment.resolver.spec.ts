@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CommentResolver } from './comment.resolver';
-import { CommentService } from './comment.service';
-import { Comment } from './entity';
-import { CommentPostInput } from './inputs';
-import { User } from '../user/entity';
+import { CommentResolver } from '../comment.resolver';
+import { CommentService } from '../comment.service';
+import { Comment } from '../entity';
+import { CommentPostInput } from '../inputs';
+import { User } from '../../user/entity';
 import { JwtAuthGuard } from '@AuthConfig/guards/jwt.guard';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthService } from '@AuthConfig/auth.service';

@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostResolver } from './post.resolver';
-import { PostService } from './post.service';
-import { Post } from './entity';
-import { CreatePostInput } from './inputs/create-post.input';
-import { User } from '../user/entity';
+import { PostResolver } from '../post.resolver';
+import { PostService } from '../post.service';
+import { Post } from '../entity';
+import { CreatePostInput } from '../inputs/create-post.input';
+import { User } from '../../user/entity';
 import { JwtAuthGuard } from '@AuthConfig/guards/jwt.guard';
 import { ExecutionContext } from '@nestjs/common';
 import { AuthService } from '@AuthConfig/auth.service';

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AuthResolver } from './auth.resolver';
-import { AuthService } from './auth.service';
-import { AuthResponse, LoginInput } from './inputs/login.input';
+import { AuthResolver } from '../auth.resolver';
+import { AuthService } from '../auth.service';
+import { AuthResponse, LoginInput } from '../inputs/login.input';
 
 const mockAuthResponse: AuthResponse = {
   accessToken: 'mockAccessToken',

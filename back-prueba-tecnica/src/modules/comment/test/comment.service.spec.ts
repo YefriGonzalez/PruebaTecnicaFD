@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CommentService } from './comment.service';
+import { CommentService } from '../comment.service';
 import { PrismaService } from '@PrismaConfig/prisma.service';
-import { PostService } from '../post/post.service';
-import { CommentPostInput } from './inputs';
-import { Comment } from './entity';
+import { PostService } from '../../post/post.service';
+import { CommentPostInput } from '../inputs';
+import { Comment } from '../entity';
 
 const mockComment: Comment = {
   id: 1,

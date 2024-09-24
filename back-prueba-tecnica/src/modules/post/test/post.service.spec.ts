@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostService } from './post.service';
+import { PostService } from '../post.service';
 import { PrismaService } from '@PrismaConfig/prisma.service';
-import { CreatePostInput } from './inputs/create-post.input';
+import { CreatePostInput } from '../inputs/create-post.input';
 import { NotFoundException, InternalServerErrorException } from '@nestjs/common';
-import { Post } from './entity';
+import { Post } from '../entity';
 
 describe('PostService', () => {
   let service: PostService;
