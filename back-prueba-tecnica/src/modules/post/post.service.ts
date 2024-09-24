@@ -63,6 +63,9 @@ export class PostService {
       }
       return post;
     } catch (error) {
+      if(error instanceof NotFoundException){
+        throw error;
+      }
       this.logger.log(error);
       throw new InternalServerErrorException('Ocurrio un error interno');
     }

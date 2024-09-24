@@ -13,7 +13,8 @@ module.exports = {
     moduleNameMapper: {
       '^@PrismaConfig/(.*)$': '<rootDir>/prisma/$1',
       '^@Config':'<rootDir>/config/index',
-      '^@Modules/(.*)$':'<rootDir>/modules/$1'
+      '^@Modules/(.*)$':'<rootDir>/modules/$1',
+      '^@AuthConfig/(.*)$':'<rootDir>/auth/$1'
     },
   };
   

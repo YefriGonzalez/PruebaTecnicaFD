@@ -2,9 +2,9 @@ import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { PostService } from './post.service';
 import { Post } from './entity';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { JwtAuthGuard } from '@AuthConfig/guards/jwt.guard';
 import { CreatePostInput } from './inputs/create-post.input';
-import { CurrentUser } from 'src/auth/decorators';
+import { CurrentUser } from '@AuthConfig/decorators/index';
 import { User } from '../user/entity';
 
 @Resolver(() => Post)

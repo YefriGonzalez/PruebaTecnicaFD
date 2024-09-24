@@ -23,7 +23,7 @@ export class Post {
   updatedAt: Date;
   
   @Field(() => User)
-  author: User;
+  author?: User;
 
   @Field(() => [Comment], { nullable: true }) 
   comments?: Comment[];

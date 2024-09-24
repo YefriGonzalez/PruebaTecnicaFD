@@ -1,3 +1,4 @@
+import { AuthService } from '@AuthConfig/auth.service';
 import {
   CanActivate,
   ExecutionContext,
@@ -6,8 +7,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { Observable } from 'rxjs';
-import { AuthService } from '../auth.service';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
