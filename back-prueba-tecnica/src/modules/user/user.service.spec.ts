@@ -52,16 +52,16 @@ describe('UserService', () => {
   });
 
   it('crear un nuevo usuario', async () => {
-    const createUserInput: CreateUserInput = { email: 'test@example.com', password: '1234',username:'usernametest' };
+    const createUserInput: CreateUserInput = { email: 'test@example.com', password: '1234',username:'usertest' };
     const result = await service.create(createUserInput);
     expect(result).toEqual(mockUser);
     expect(prisma.user.create).toHaveBeenCalledWith({ data: createUserInput });
   });
 
-//   it('lanzar un NotFoundException si el usuario no es encontrado', async () => {
-//     jest.spyOn(prisma.user, 'findUnique').mockResolvedValueOnce(null);
-//     await expect(service.findByEmail('nonexistent@example.com')).rejects.toThrow(NotFoundException);
-//   });
+  it('lanzar un NotFoundException si el usuario no es encontrado', async () => {
+    jest.spyOn(prisma.user, 'findUnique').mockResolvedValueOnce(null);
+    await expect(service.findByEmail('nonexistent@example.com')).rejects.toThrow(NotFoundException);
+  });
 
   it('desencriptar la contraseña correctamente', async () => {
     const encryptedPassword = 'cdd9286f924500252962bc';

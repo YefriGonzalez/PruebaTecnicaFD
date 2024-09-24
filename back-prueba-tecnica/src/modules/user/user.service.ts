@@ -52,6 +52,9 @@ export class UserService {
       }
       return user;
     } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
       this.logger.log(error);
       throw new InternalServerErrorException('Ocurrio un error interno');
     }
