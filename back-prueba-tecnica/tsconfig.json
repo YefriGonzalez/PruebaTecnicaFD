@@ -16,6 +16,11 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@PrismaConfig/*":["./src/prisma/*"],
+      "@Config":["./src/config/index"],
+      "@Modules/*":["./src/modules/*"]
+    }
   }
 }

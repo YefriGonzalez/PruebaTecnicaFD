@@ -5,11 +5,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { User } from './entity/index';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateUserInput, LoginUserInput } from './inputs';
-import { createCipheriv, createDecipheriv, randomBytes, scrypt } from 'crypto';
+import { PrismaService } from '@PrismaConfig/prisma.service';
+import { CreateUserInput } from './inputs';
+import { createCipheriv, createDecipheriv, scrypt } from 'crypto';
 import { promisify } from 'util';
-import { envs } from 'src/config';
+import { envs } from '@Config';
 @Injectable()
 export class UserService {
   private readonly logger = new Logger('UserModule');
