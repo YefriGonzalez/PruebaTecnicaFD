@@ -4,7 +4,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '@PrismaConfig/prisma.service';
 import { Post } from './entity';
 import { CreatePostInput } from './inputs/create-post.input';
 

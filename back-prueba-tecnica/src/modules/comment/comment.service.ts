@@ -3,7 +3,7 @@ import {
   InternalServerErrorException,
   Logger,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '@PrismaConfig/prisma.service';
 import { CommentPostInput } from './inputs';
 import { Comment } from './entity';
 import { PostService } from '../post/post.service';
