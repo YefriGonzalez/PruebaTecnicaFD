@@ -2,6 +2,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -32,6 +33,9 @@ export class AuthService {
       }
       return null;
     } catch (error) {
+      if(error instanceof NotFoundException){
+        throw error;
+      }
       this.logger.log(error);
       throw new InternalServerErrorException('Ocurrio un error interno');
     }
@@ -52,6 +56,9 @@ export class AuthService {
         accessToken: this.jwtService.sign(payload),
       };
     } catch (error) {
+      if(error instanceof UnauthorizedException){
+        throw error;
+      }
       this.logger.log(error);
       throw new InternalServerErrorException('Ocurrio un error interno');
     }
@@ -67,6 +74,10 @@ export class AuthService {
       }
       throw new UnauthorizedException('Token invalido');
     } catch (error) {
+      console.log(error)
+      if(error instanceof UnauthorizedException){
+        throw error;
+      }
       this.logger.log(' ~ AuthService ~ validateJwt ~ error:', error);
       throw new InternalServerErrorException(error);
     }
