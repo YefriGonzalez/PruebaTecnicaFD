@@ -19,6 +19,8 @@ de Finca Digital
 * Si existe `postgres_data` , eliminarlo `docker volume rm postgres_data`
 * Verificar los losg `docker logs db`
 
+## Test
+Para ejecutar las test ejecutar el comando ```npm run test```
 ## Migraciones con Liquibase
 
 - El servicio de Liquibase se encargará de aplicar las migraciones automáticamente cada vez que se levanten los contenedores.
